@@ -85,7 +85,7 @@ const std::string XmlProcessImageGenerator::Generate(std::uint8_t nodeid, std::s
 	return fullProcessImage.str();
 }
 
-std::uint32_t XmlProcessImageGenerator::WriteXMLProcessImage(const Direction dir, const std::shared_ptr<BaseNode>& node)
+std::uint32_t XmlProcessImageGenerator::WriteXMLProcessImage(const Direction& dir, const std::shared_ptr<BaseNode>& node)
 {
 	this->processImageStream.str(std::string());
 	std::vector<std::shared_ptr<BaseProcessImageObject>> processImage;
@@ -127,7 +127,7 @@ std::uint32_t XmlProcessImageGenerator::WriteXMLProcessImage(const Direction dir
 	return piSize;
 }
 
-const std::string XmlProcessImageGenerator::PrintChannel(const std::string& name, const IEC_Datatype datatype, const std::uint32_t size, const std::uint32_t piOffset, const boost::optional<std::uint32_t>& bitOffset)
+const std::string XmlProcessImageGenerator::PrintChannel(const std::string& name, const IEC_Datatype& datatype, const std::uint32_t size, const std::uint32_t piOffset, const boost::optional<std::uint32_t>& bitOffset)
 {
 	std::stringstream channel;
 

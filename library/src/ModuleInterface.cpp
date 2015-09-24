@@ -1,8 +1,8 @@
 /************************************************************************
-\file ParameterReference.h
-\brief Implementation of the Class Parameter
+\file ModuleInterface.cpp
+\brief Implementation of the Class Range
 \author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
-\date 05-January-2016 12:00:00
+\date 01-May-2015 12:00:00
 ************************************************************************/
 
 /*------------------------------------------------------------------------------
@@ -29,49 +29,51 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ------------------------------------------------------------------------------*/
-#if !defined PARAMETER_REFERENCE_H
-#define PARAMETER_REFERENCE_H
+#include "ModuleInterface.h"
 
-#include <memory>
-#include <boost/dynamic_bitset.hpp>
+using namespace IndustrialNetwork::POWERLINK::Core::ModularNode;
+using namespace IndustrialNetwork::POWERLINK::Core::ErrorHandling;
 
-#include "ComplexDataType.h"
-#include "PlkDataType.h"
-#include "ParameterAccess.h"
-#include "Parameter.h"
-#include "IEC_Datatype.h"
-#include "Utilities.h"
-#include "IParameterGroupEntry.h"
+ModuleInterface::ModuleInterface(const std::string& childId, const std::string& type, ModuleAddressing moduleAddressing, std::uint16_t minPosition, std::uint16_t maxPosition, std::uint16_t minAddress, std::uint16_t maxAddress, std::uint16_t maxCount) :
+	IBaseInterface(childId, type, moduleAddressing),
+	minPosition(minPosition),
+	maxPosition(maxPosition),
+	minAddress(minAddress),
+	maxAddress(maxAddress),
+	maxCount(maxCount)
+{}
 
-namespace IndustrialNetwork
+ModuleInterface::~ModuleInterface()
+{}
+
+std::uint16_t ModuleInterface::GetMinPosition() const
 {
-	namespace POWERLINK
-	{
-		namespace Core
-		{
-			namespace ObjectDictionary
-			{
-				/**
-				\brief Represents a parameter reference.
-				\author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
-				*/
-				class ParameterReference : public IParameterGroupEntry
-				{
-
-					public:
-						ParameterReference(const std::string& uniqueId, const std::shared_ptr<Parameter>& param, const std::string& actualValue = "", std::uint16_t bitOffset = 0);
-						virtual ~ParameterReference();
-						const std::string& GetActualValue() const;
-						const boost::dynamic_bitset<>& GetActualValueBitSet() const;
-						const std::shared_ptr<Parameter>& GetReferencedParameter() const;
-						std::uint32_t GetBitSize() const;
-
-					private:
-						std::string actualValue;
-						std::shared_ptr<Parameter> referencedParameter;
-				};
-			}
-		}
-	}
+	return this->minPosition;
 }
-#endif
+
+std::uint16_t ModuleInterface::GetMaxPosition() const
+{
+	return this->maxPosition;
+}
+
+std::uint16_t ModuleInterface::GetMinAddress() const
+{
+	return this->minAddress;
+}
+
+std::uint16_t ModuleInterface::GetMaxAddress() const
+{
+	return this->maxAddress;
+}
+
+std::uint16_t ModuleInterface::GetMaxCount() const
+{
+	return this->maxCount;
+}
+
+bool ModuleInterface::ValidateModuleType(const std::string& type) const
+{
+	if (this->GetType() == type)
+		return true;
+	return false;
+}

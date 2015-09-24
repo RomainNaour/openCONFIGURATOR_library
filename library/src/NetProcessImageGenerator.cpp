@@ -76,7 +76,7 @@ const std::string NetProcessImageGenerator::Generate(std::uint8_t nodeid, std::s
 	return fullProcessImage.str();
 }
 
-std::uint32_t NetProcessImageGenerator::WriteNETProcessImage(const Direction dir, const std::shared_ptr<BaseNode>& node)
+std::uint32_t NetProcessImageGenerator::WriteNETProcessImage(const Direction& dir, const std::shared_ptr<BaseNode>& node)
 {
 	this->processImageStream.str(std::string());
 	std::vector<std::shared_ptr<BaseProcessImageObject>> processImage;
@@ -155,7 +155,7 @@ std::uint32_t NetProcessImageGenerator::WriteNETProcessImage(const Direction dir
 	return piSize;
 }
 
-const std::string NetProcessImageGenerator::PrintChannel(const std::string& name, const IEC_Datatype dt, const std::uint32_t, const std::uint32_t, const boost::optional<std::uint32_t>&)
+const std::string NetProcessImageGenerator::PrintChannel(const std::string& name, const IEC_Datatype& dt, const std::uint32_t, const std::uint32_t, const boost::optional<std::uint32_t>&)
 {
 	std::stringstream channel;
 	channel << "\t\tpublic " << GetNetDatatypeFromIEC(dt) << " " << name << ";" << std::endl;

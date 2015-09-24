@@ -1,8 +1,8 @@
 /************************************************************************
-\file ParameterReference.h
-\brief Implementation of the Class Parameter
+\file IBaseInterface.h
+\brief Implementation of the Class IBaseInterface
 \author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
-\date 05-January-2016 12:00:00
+\date 01-March-2016 12:00:00
 ************************************************************************/
 
 /*------------------------------------------------------------------------------
@@ -29,19 +29,13 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ------------------------------------------------------------------------------*/
-#if !defined PARAMETER_REFERENCE_H
-#define PARAMETER_REFERENCE_H
+#if !defined IBASE_INTERFACE_H
+#define IBASE_INTERFACE_H
 
-#include <memory>
-#include <boost/dynamic_bitset.hpp>
+#include <string>
+#include <set>
 
-#include "ComplexDataType.h"
-#include "PlkDataType.h"
-#include "ParameterAccess.h"
-#include "Parameter.h"
-#include "IEC_Datatype.h"
-#include "Utilities.h"
-#include "IParameterGroupEntry.h"
+#include "SortEnums.h"
 
 namespace IndustrialNetwork
 {
@@ -49,26 +43,48 @@ namespace IndustrialNetwork
 	{
 		namespace Core
 		{
-			namespace ObjectDictionary
+			/**
+			\brief Modular node related namespace
+			\author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
+			*/
+			namespace ModularNode
 			{
 				/**
-				\brief Represents a parameter reference.
+				\brief Represents the template class for a Interface object.
 				\author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
 				*/
-				class ParameterReference : public IParameterGroupEntry
+				class IBaseInterface
 				{
 
 					public:
-						ParameterReference(const std::string& uniqueId, const std::shared_ptr<Parameter>& param, const std::string& actualValue = "", std::uint16_t bitOffset = 0);
-						virtual ~ParameterReference();
-						const std::string& GetActualValue() const;
-						const boost::dynamic_bitset<>& GetActualValueBitSet() const;
-						const std::shared_ptr<Parameter>& GetReferencedParameter() const;
-						std::uint32_t GetBitSize() const;
+						IBaseInterface(const std::string& uniqueId, const std::string& type, ModuleAddressing addressing) :
+							uniqueId(uniqueId),
+							type(type),
+							moduleAddressing(addressing)
+						{}
+
+						virtual ~IBaseInterface()
+						{}
+
+						const std::string& GetUniqueId() const
+						{
+							return this->uniqueId;
+						}
+
+						const std::string& GetType() const
+						{
+							return this->type;
+						}
+
+						ModuleAddressing GetModuleAddressing() const
+						{
+							return this->moduleAddressing;
+						}
 
 					private:
-						std::string actualValue;
-						std::shared_ptr<Parameter> referencedParameter;
+						std::string uniqueId;
+						std::string type;
+						ModuleAddressing moduleAddressing;
 				};
 			}
 		}

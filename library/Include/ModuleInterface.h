@@ -1,8 +1,8 @@
 /************************************************************************
-\file ParameterReference.h
-\brief Implementation of the Class Parameter
+\file ModuleInterface.h
+\brief Implementation of the Class ModuleInterface
 \author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
-\date 05-January-2016 12:00:00
+\date 01-May-2015 12:00:00
 ************************************************************************/
 
 /*------------------------------------------------------------------------------
@@ -29,19 +29,17 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ------------------------------------------------------------------------------*/
-#if !defined PARAMETER_REFERENCE_H
-#define PARAMETER_REFERENCE_H
+#if !defined MODULE_INTERFACE_H
+#define MODULE_INTERFACE_H
 
-#include <memory>
-#include <boost/dynamic_bitset.hpp>
+#include <cstdint>
+#include <set>
+#include <string>
 
-#include "ComplexDataType.h"
-#include "PlkDataType.h"
-#include "ParameterAccess.h"
-#include "Parameter.h"
-#include "IEC_Datatype.h"
-#include "Utilities.h"
-#include "IParameterGroupEntry.h"
+#include "SortEnums.h"
+#include "Range.h"
+#include "ErrorCode.h"
+#include "IBaseInterface.h"
 
 namespace IndustrialNetwork
 {
@@ -49,26 +47,32 @@ namespace IndustrialNetwork
 	{
 		namespace Core
 		{
-			namespace ObjectDictionary
+			namespace ModularNode
 			{
 				/**
-				\brief Represents a parameter reference.
+				\brief Represents a module interface in the modular controlled node.
 				\author rueckerc, Bernecker+Rainer Industrie Elektronik Ges.m.b.H.
 				*/
-				class ParameterReference : public IParameterGroupEntry
+				class ModuleInterface : public IBaseInterface
 				{
 
 					public:
-						ParameterReference(const std::string& uniqueId, const std::shared_ptr<Parameter>& param, const std::string& actualValue = "", std::uint16_t bitOffset = 0);
-						virtual ~ParameterReference();
-						const std::string& GetActualValue() const;
-						const boost::dynamic_bitset<>& GetActualValueBitSet() const;
-						const std::shared_ptr<Parameter>& GetReferencedParameter() const;
-						std::uint32_t GetBitSize() const;
+						ModuleInterface(const std::string& childId, const std::string& type, ModuleAddressing moduleAddressing, std::uint16_t minPosition, std::uint16_t maxPosition, std::uint16_t minAddress, std::uint16_t maxAddress, std::uint16_t maxCount);
+						virtual ~ModuleInterface();
+
+						std::uint16_t GetMinPosition() const;
+						std::uint16_t GetMaxPosition() const;
+						std::uint16_t GetMinAddress() const;
+						std::uint16_t GetMaxAddress() const;
+						std::uint16_t GetMaxCount() const;
+						bool ValidateModuleType(const std::string& type) const;
 
 					private:
-						std::string actualValue;
-						std::shared_ptr<Parameter> referencedParameter;
+						std::uint16_t minPosition;
+						std::uint16_t maxPosition;
+						std::uint16_t minAddress;
+						std::uint16_t maxAddress;
+						std::uint16_t maxCount;
 				};
 			}
 		}

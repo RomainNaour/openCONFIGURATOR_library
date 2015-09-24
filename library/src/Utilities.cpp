@@ -108,7 +108,7 @@ namespace IndustrialNetwork
 					return b;
 				}
 
-				std::uint32_t GetIECDataTypeBitSize(const IEC_Datatype dataType)
+				std::uint32_t GetIECDataTypeBitSize(const IEC_Datatype& dataType)
 				{
 					switch (dataType)
 					{
@@ -237,8 +237,7 @@ namespace IndustrialNetwork
 						splitString.push_back(tempStr.substr(start, 2));
 					}
 
-					for (std::vector<std::string>::reverse_iterator i = splitString.rbegin();
-					        i != splitString.rend(); ++i)
+					for (std::vector<std::string>::reverse_iterator i = splitString.rbegin(); i != splitString.rend(); ++i)
 					{
 						reverseStr << *i;
 					}
@@ -256,8 +255,7 @@ namespace IndustrialNetwork
 						splitString.push_back(number.substr(start, 2));
 					}
 
-					for (std::vector<std::string>::reverse_iterator i = splitString.rbegin();
-					        i != splitString.rend(); ++i)
+					for (std::vector<std::string>::reverse_iterator i = splitString.rbegin(); i != splitString.rend(); ++i)
 					{
 						reverseStr << *i;
 					}
@@ -309,7 +307,7 @@ namespace IndustrialNetwork
 					return input;
 				}
 
-				IEC_Datatype GetIECDataType(const PlkDataType dataType)
+				IEC_Datatype GetIECDataType(const PlkDataType& dataType)
 				{
 					switch (dataType)
 					{
@@ -358,7 +356,7 @@ namespace IndustrialNetwork
 					}
 				}
 
-				PlkDataType GetPlkDataType(const IEC_Datatype dataType)
+				PlkDataType GetPlkDataType(const IEC_Datatype& dataType)
 				{
 					switch (dataType)
 					{

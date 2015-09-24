@@ -85,10 +85,10 @@ namespace IndustrialNetwork
 
 				bool StringToBool(const std::string& str);
 
-				std::uint32_t GetIECDataTypeBitSize(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype dataType);
+				std::uint32_t GetIECDataTypeBitSize(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype& dataType);
 
-				IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype GetIECDataType(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::PlkDataType dataType);
-				IndustrialNetwork::POWERLINK::Core::ObjectDictionary::PlkDataType GetPlkDataType(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype dataType);
+				IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype GetIECDataType(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::PlkDataType& dataType);
+				IndustrialNetwork::POWERLINK::Core::ObjectDictionary::PlkDataType GetPlkDataType(const IndustrialNetwork::POWERLINK::Core::ObjectDictionary::IEC_Datatype& dataType);
 
 				int32_t FloatToSinglePrecisisionHex(float value);
 				int64_t DoubleToDoublePrecisisionHex(double value);
